@@ -1,0 +1,144 @@
+sudo apt-get update μου δίνει τις τρέχουσες εκδόσεις των πακέτων που έχω
+sudo apt-get dist-upgrade κάνει upgrade στην τελευταία έκδοση που υπάρχει τα πακέτα
+sudo apt autoremove σβίνει τα άχρηστα versions των πακέτων
+
+mysql -u doctor -p YourMed
+c3Pa#jshsoGde22oi
+YourMed Cred:
+mail: aliki2001@gmail.com
+pass: Aliki2001!
+AMKA: 2584375
+
+cntrl+f για text search
+tab κάνει autocomplete
+cntrl+C copy
+cntrl+X cut
+cntrl+V paste
+cntrl+? για group comment out
+δεξί click format document για αυτόματη στοίχιση
+δεξι click inspect console για errors στο browser
+fn+f12 για errors στο browser
+
+-------------------------------------------------------------------------
+sudo apt-get install gimp  για να κάνω manipulate εικόνες
+
+sudo apt install php-cli
+sudo apt install apache2
+sudo pico /etc/apache2/apache2.conf
+ServerName 127.0.0.1
+
+using & on the end of a command makes it run on the background 
+even if you log out of the server
+
+what is php cli? it's being able to run PHP code from the command line
+php= personal home page
+
+apache2 is a webserver, a program that turns my laptop into a server 
+writing in the url "local host" opens a page that is "stored" in my laptop
+127.0.0.1=localhost
+
+sudo apt  install aria2
+aria2c -x16 http:/κάποιο url downloader για να κάνεις πιο γρήγορο install ένα πακέτο αρχείο
+αντί για wget url 
+
+sudo dpkg -i bluegriffon-3.1.Ubuntu18.04-x86_64.deb για coverter html
+
+html validator για offline check μεταφερσιμότητας της html 
+
+php name1.php > name2.tsv αποθηκεύει το output του name1 σε νέο αρχείο με όνομα name2,
+αν υπάρχει το name2 το κάνει overwrite
+
+php name1.php >> name2.tsv αποθηκεύει το output του name1 σε νέο αρχείο με όνομα name2,
+αν υπάρχει το name2 το κολλάει το output στο τέλος
+
+mysql -u root -p
+MySQL root password: r2D2!ocRpo
+
+για να αλλάξω το post_max_size και το upload_max_filesize στο αρχείο php.ini
+πρώτα γίνομαι sudo
+μετά πάω στο φάκελο του apache2
+μετά ll για να βρω το php.ini
+pico στο php.ini και αλλάζω manually τα νούμερα, save
+Press Ctrl and W and type "post_max_size"
+Change the value to the number of Mb you want your site to accept as uploads
+Press Ctrl and W and type "upload_max_filesize"
+Change the value to the number of Mb you want your site to accept as uploads
+Press Ctrl and X
+service apache2 restart
+και μετά refresh στο localhost και λογικα δουλεύει 
+
+Για να αλλάξω τα permissions σε ολόκληρο φάκελο πχ name
+παω σε ένα φάκελο πριν το name και κάνω
+sudo chown www-data.www-data -R name/ (change ownership, www-data διαχειρίζεται όλα τα αρχεία που παίρνουμε από το browser)
+
+ps -ef | grep όνομα_service 
+service όνομα_service status // για να τσεκάρω αν τρέχει σωστά κάποιο service/εφαρμογή πχ apache2, sendmail
+
+στο workbench
+file > page setup > orientation:landscape
+model > diagram properties and size : διαλέγω το ένα cell
+model > model options : collumn_name = %column%
+
+CREATE DATABASE YourMed;
+CREATE USER 'doctor'@localhost IDENTIFIED BY 'c3Pa#jshsoGde22oi';
+GRANT ALL PRIVILEGES ON `YourMed`.* TO 'doctor'@localhost;
+FLUSH PRIVILEGES;
+
+Όταν η μεταβλητή σε καποιο query ΔΕΝ ειναι int πρέπει να την βάζω σε '' για να την αναγνωρίζει
+
+workbench
+copy sql to clipboard
+paste στο notepadq
+προσθετω ;
+copy paste στο terminal
+
+ΓΙΑ ΑΣΦΑΛΕΙΑ:
+Σε κάθε request:
+    1) Sanitization on user input
+      sql injections
+      mysqli_real_escape_string(); σβήνω όλα τα html tags
+      md5sum(); για τα passwords, δεν επιτρέπεται να σώζω τα passwords σαν plain text, πρέπει να τα κάνω hash
+
+    2) Content-Security-Policy for XSS attacks (attacks with scripts) !!!!
+
+Σε κάθε file upload:
+    1) Remote File Injection
+    2) Path Traversal !!!!
+
+Σε κάθε POST: 
+    1) Prepared Statements on SQL Queries !!!!
+    2) CSRF Token Validation
+---------------------------------------------------------------------------------------------
+<?php
+$url = "http://requestb.in/example";
+$data = ["name" => "Lorna", "email" => "lorna@example.com"];
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_HTTPHEADER,
+['Content-Type: application/json']
+);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$result = curl_exec($ch);
+curl_close($ch);
+?> 
+//sends some JSON data and a Content-Type header with
+the POST request
+
+
+<?php
+$url = "http://requestb.in/example";
+$data = ["name" => "Lorna", "email" => "lorna@example.com"];
+$context = stream_context_create([
+'http' => [
+'method' => 'POST',
+'header' => ['Accept: application/json',
+'Content-Type: application/json'),
+'content' => json_encode($data)
+]
+]]);
+$result = file_get_contents($url, false, $context);
+?>
+//POST request with JSON file
+--------------------------------------------------------------------------
+

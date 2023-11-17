@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Optional, to center vertically as well */
+}
+
+.center-container {
+    text-align: center;
+}
+
+/* Optional: Adjust the width of the table for responsiveness */
+@media (max-width: 600px) {
+    table {
+        width: 100%;
+    }
+}
+
+/* Adjusted table row height and padding */
+table {
+    border-collapse: collapse;
+}
+
+table td {
+    padding: 8px;
+}
+
+/* Custom style for the submit button */
+input[type="submit"] {
+    background-color: #4ebaaf;
+    /* Change this to the desired background color */
+    color: white;
+    /* Change this to the desired text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
